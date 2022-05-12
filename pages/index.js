@@ -3,7 +3,7 @@ import Image from "next/image";
 import { HeroBanner } from "../components/HeroBanner";
 import { Footer } from "../components/Footer";
 import { FooterBanner } from "../components/FooterBanner";
-
+import { Product } from "../components/Product";
 import { client } from "../lib/client";
 
 export default function Home({ products, bannerData }) {
@@ -15,7 +15,9 @@ export default function Home({ products, bannerData }) {
         <p>Speakers of many variations</p>
       </div>
       <div className="products-container">
-        {products?.map((product) => product.name)}
+        {products?.map((product) => (
+          <Product key={product._id} product={product} />
+        ))}
       </div>
       <FooterBanner />
     </>
