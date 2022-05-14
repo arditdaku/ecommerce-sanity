@@ -2,7 +2,7 @@ import React from "react";
 
 import Image from "next/image";
 import Link from "next/link";
-import { urlFor } from "../lib/client";
+import { client, urlFor } from "../lib/client";
 
 export const Product = ({ product: { image, name, slug, price } }) => {
   return (
