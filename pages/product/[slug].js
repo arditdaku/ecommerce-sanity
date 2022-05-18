@@ -6,12 +6,19 @@ import {
   AiOutlineStar,
 } from "react-icons/ai";
 import { Product } from "../../components/Product";
-
+import { useStateContext } from "../../context/StateContext";
 import { client, urlFor } from "../../lib/client";
 
 const ProductDetails = ({ product, products }) => {
   const { image, name, details, price } = product;
   const [index, setIndex] = useState(0);
+  const { decreaseQty, increateQty, quantity, onAdd, setShowCart } =
+    useStateContext();
+  const handleBuyNow = () => {
+    onAdd(product, quantity);
+    setShowCart(true);
+  };
+
   return (
     <div>
       <div className="product-detail-container">
@@ -52,23 +59,28 @@ const ProductDetails = ({ product, products }) => {
           <h4>Details:</h4>
           <p>{details}</p>
           <p className="price">${price}</p>
+
           <div className="quantity">
             <h3>Quantity:</h3>
             <p className="quantity-desc">
-              <span className="minus">
+              <span className="minus" onClick={decreaseQty}>
                 <AiOutlineMinus />
               </span>
-              <span className="num">20</span>
-              <span className="plus">
+              <span className="num">{quantity}</span>
+              <span className="plus" onClick={increateQty}>
                 <AiOutlinePlus />
               </span>
             </p>
           </div>
           <div className="buttons">
-            <button type="button" className="add-to-cart">
+            <button
+              type="button"
+              className="add-to-cart"
+              onClick={() => onAdd(product, quantity)}
+            >
               Add to Cart
             </button>
-            <button type="button" className="buy-now">
+            <button type="button" className="buy-now" onClick={handleBuyNow}>
               Buy Now
             </button>
           </div>
@@ -115,8 +127,6 @@ export const getStaticProps = async ({ params: { slug } }) => {
 
   const product = await client.fetch(query);
   const products = await client.fetch(productsQuery);
-
-  console.log("Product", product);
 
   return {
     props: {
