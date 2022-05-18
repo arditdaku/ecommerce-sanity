@@ -27,7 +27,6 @@ const ProductDetails = ({ product, products }) => {
             <img
               src={urlFor(image && image[index])}
               className="product-detail-image"
-              alt=""
             />
           </div>
           <div className="small-images-container">
@@ -56,10 +55,9 @@ const ProductDetails = ({ product, products }) => {
             </div>
             <p>(20)</p>
           </div>
-          <h4>Details:</h4>
+          <h4>Details: </h4>
           <p>{details}</p>
           <p className="price">${price}</p>
-
           <div className="quantity">
             <h3>Quantity:</h3>
             <p className="quantity-desc">
@@ -86,12 +84,13 @@ const ProductDetails = ({ product, products }) => {
           </div>
         </div>
       </div>
+
       <div className="maylike-products-wrapper">
         <h2>You may also like</h2>
         <div className="marquee">
           <div className="maylike-products-container track">
             {products.map((item) => (
-              <Product key={item.id} product={item} />
+              <Product key={item._id} product={item} />
             ))}
           </div>
         </div>
